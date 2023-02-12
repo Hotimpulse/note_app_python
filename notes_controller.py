@@ -13,11 +13,12 @@ class Note_Controller:
         return note_id
 
     def add_note(self, note_id, note_head, note_text):
+        note_edit = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         if note_id in self.notes:
             print("This note id already exists.")
         else:
-            self.notes[note_id] = Note(note_id, note_head, note_text)
-            print("Note added successfully!")
+            self.notes[note_id] = Note(note_id, note_head, note_text, note_edit)
+            print(f"Note added successfully at {note_edit}!")
  
     def delete_note(self, note_id):
         note_id = input("Enter note id to remove it: ")
@@ -29,22 +30,31 @@ class Note_Controller:
             True;
 
     def view_notes(self, note_id):
-        if note_id in self.notes:
-            for note_id in self.notes:
-                print(note_id, self.notes[note_id].note_head, self.notes[note_id].note_text)
+
+        user_pick = input("Enter 0 to show all notes, 1 to sort them by date: ")
+
+        notes = [(note_id, note.note_head, note.note_text, note.note_edit) for note_id, note in self.notes.items()]
+        if user_pick == '0':
+            for note in notes:
+                print(note[0], note[1], note[2], note[3])
+        elif user_pick == '1':
+            notes.sort(key=lambda x: x[3], reverse=True)
+            for note in notes:
+                print(note[0], note[1], note[2], note[3])
         elif self.notes == {}:
-            print("Your notes list is empty. Try adding a note with #1.")
+                print("Your notes list is empty. Try adding a note with #1.")
         else:
             print("Your note isn't here. Try a different ID.")
 
+    def edit_note(self, note_id, note_head, note_text, note_edit):
 
-    def edit_note(self, note_id, note_head, note_text):
         if note_id in self.notes:
             # if note_id == input:
             note_head = input("Edit title for the note: ")
             self.notes[note_id].note_head = note_head
             note_text = input("Edit text for the note: ")
             self.notes[note_id].note_text = note_text
+            self.notes[note_id].note_edit = note_edit
             print("Note updated!")
         
     def export_note(self):
@@ -123,7 +133,8 @@ class Note_Controller:
                 else: 
                     note_id = input("Enter the ID of the note: ")
                     if note_id in self.notes:
-                        self.edit_note(note_id, note_head, note_text);
+                        note_edit = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                        self.edit_note(note_id, note_head, note_text, note_edit);
                     else:
                         print("Note id isn't in the list. Try again.")
                     continue
@@ -145,5 +156,3 @@ class Note_Controller:
 
             elif (user_pick == '0' or 'q'):
                 break
-
-            
