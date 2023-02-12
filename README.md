@@ -1,14 +1,14 @@
 # note_app_python
-Note app written in Python for an assignment
+This is a `notes app` written in `Python`.
 
-**The app can:**
-1. Save data to a file;
-2. Read-display data from a file (.csv);
+##The app has the following features:
+
+1. CRUD principles for notes;
+2. Import/export data (.csv);
 3. Filter notes by time of the last edit;
-4. Show the selected note via id;
-5. Show the whole list of notes;
-6. CRUD on notes;
+4. Show the list of all notes;
 
+**This note app is meant to be used/called from the `VSCode` console.**
 
-## This note app is meant to be used/called from console of VSCode.
+**To start the app, run the code from the file called `run_app.py`**
 
